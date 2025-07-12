@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TO-DO LIST</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #f2f6ff;
+      font-family: 'Poppins', sans-serif;
+      color: #2c3e50;
+    }
+
+    .header-section {
+      text-align: center;
+      padding: 2rem 0 1rem 0;
+      background: linear-gradient(to right, #6dd5ed, #2193b0);
+      color: white;
+    }
+
+    .header-section h2 {
+      font-weight: 600;
+    }
+
+    .header-section p {
+      margin: 0.3rem 0;
+      font-size: 1.1rem;
+    }
+
+    .created-by {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #fefefe;
+    }
+
+    .card {
+      background: white;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-control, .form-select {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .form-group label {
+      font-weight: 500;
+    }
+
+    th {
+      background-color: #2193b0;
+      color: white;
+    }
+
+    td {
+      background-color: #ffffff;
+    }
+
+    tr:hover td {
+      background-color: #f0f8ff !important;
+    }
+
+    .badge-status {
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+
+    .badge-done {
+      background-color: #2ecc71;
+    }
+
+    .badge-priority {
+      background-color: #e74c3c;
+    }
+
+    .badge-ongoing {
+      background-color: #f39c12;
+    }
+
+    .badge-reminder {
+      background-color: #3498db;
+    }
+
+    .btn {
+      border-radius: 10px;
+    }
+
+    .alert-info {
+      background-color: #ecfaff;
+      color: #007b8a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-section">
+    <h2>YOUR TO-DO LIST</h2>
+    <p>Organized framework to manage tasks, priorities, and deadlines efficiently.</p>
+    <p class="created-by">Created by MITHUN MARTIN</p>
+  </div>
+
+  <div class="container mt-5 mb-5">
+    <div class="card p-4 mb-4">
+      <h4 class="mb-3">Add New Task</h4>
+      <form action="/" method="POST">
+        <div class="form-group">
+          <label>Task</label>
+          <input type="text" name="title" class="form-control" placeholder="Enter task" required>
+        </div>
+        <div class="form-group mt-3">
+          <label>Description</label>
+          <input type="text" name="desc" class="form-control" placeholder="Enter description">
+        </div>
+        <div class="form-group mt-3">
+          <label>Marked As</label>
+          <select name="status" class="form-control">
+            <option value="Done">Done</option>
+            <option value="To prioritize">To prioritize</option>
+            <option value="On-going">On-going</option>
+            <option value="Daily Reminder">Daily Reminder</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Add Task</button>
+      </form>
+    </div>
+
+    <div>
+      <h4>To-Do List</h4>
+      {% if allToDo|length == 0 %}
+        <div class="alert alert-info mt-3">No tasks found. Add something to get started!</div>
+      {% else %}
+        <table class="table table-bordered table-hover mt-3">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for todo in allToDo %}
+            <tr>
+              <td>{{ todo.title }}</td>
+              <td>{{ todo.desc }}</td>
+              <td>
+                {% if todo.status == "Done" %}
+                  <span class="badge badge-status badge-done">Done</span>
+                {% elif todo.status == "To prioritize" %}
+                  <span class="badge badge-status badge-priority">To prioritize</span>
+                {% elif todo.status == "On-going" %}
+                  <span class="badge badge-status badge-ongoing">On-going</span>
+                {% elif todo.status == "Daily Reminder" %}
+                  <span class="badge badge-status badge-reminder">Daily Reminder</span>
+                {% else %}
+                  <span class="badge badge-secondary">None</span>
+                {% endif %}
+              </td>
+              <td><strong>{{ todo.date_created.strftime('%I:%M %p') }}</strong></td>
+              <td>
+                <a href="/delete/{{ todo.sno }}" class="btn btn-danger btn-sm">Delete</a>
+                <a href="/update/{{ todo.sno }}" class="btn btn-info btn-sm">Update</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </div>
+  </div>
+
+</body>
+</html>

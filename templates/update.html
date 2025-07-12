@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Task</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #f2f6ff;
+      font-family: 'Poppins', sans-serif;
+      color: #2c3e50;
+    }
+
+    .header-section {
+      text-align: center;
+      padding: 2rem 0 1rem 0;
+      background: linear-gradient(to right, #6dd5ed, #2193b0);
+      color: white;
+    }
+
+    .header-section h2 {
+      font-weight: 600;
+    }
+
+    .created-by {
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: #fefefe;
+    }
+
+    .card {
+      background: white;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .form-control, .form-select {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .form-group label {
+      font-weight: 500;
+    }
+
+    .btn {
+      border-radius: 10px;
+    }
+
+    .back-link {
+      margin-top: 20px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="header-section">
+    <h2>Update Task</h2>
+    <p class="created-by">Created by MITHUN MARTIN</p>
+  </div>
+
+  <div class="container mt-5 mb-5">
+    <div class="card p-4">
+      <h4 class="mb-3">Edit Your Task</h4>
+      <form action="/update/{{ todo.sno }}" method="POST">
+        <div class="form-group">
+          <label>Task</label>
+          <input type="text" name="title" class="form-control" value="{{ todo.title }}" required>
+        </div>
+        <div class="form-group mt-3">
+          <label>Description</label>
+          <input type="text" name="desc" class="form-control" value="{{ todo.desc }}">
+        </div>
+        <div class="form-group mt-3">
+          <label>Marked As</label>
+          <select name="status" class="form-control">
+            <option value="Done" {% if todo.status == 'Done' %}selected{% endif %}>Done</option>
+            <option value="To prioritize" {% if todo.status == 'To prioritize' %}selected{% endif %}>To prioritize</option>
+            <option value="On-going" {% if todo.status == 'On-going' %}selected{% endif %}>On-going</option>
+            <option value="Daily Reminder" {% if todo.status == 'Daily Reminder' %}selected{% endif %}>Daily Reminder</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success mt-4">Update Task</button>
+        <a href="/" class="btn btn-secondary mt-4 ml-2">Cancel</a>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
