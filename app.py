@@ -131,8 +131,8 @@ def delete(sno):
 
 
 
-#if __name__ == "__main__":
- #   app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
 
 
    #THESE LINES TELL APP TO RUN AND IN DEBUGGER MODE SO THAT IF ANY ERRO HAPPENS IT WILLL BE SHOW IN BROWSER
