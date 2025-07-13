@@ -136,3 +136,6 @@ if __name__ == "__main__":
 
 
    #THESE LINES TELL APP TO RUN AND IN DEBUGGER MODE SO THAT IF ANY ERRO HAPPENS IT WILLL BE SHOW IN BROWSER
+
+#📦 2️Create a .gitignore file
+#Very important — to ignore files you don’t want to push (like your DB, virtual env)
